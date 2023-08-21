@@ -44,6 +44,6 @@ class MainAppState extends ChangeNotifier {
   }
 
   MainAppState() {
-    _paragraphId = _contentSettingsBox.get(AppConstraints.keyLastHead, defaultValue: 0);
+    _lastParagraph = _contentSettingsBox.get(AppConstraints.keyLastHead, defaultValue: 0);
   }
 }

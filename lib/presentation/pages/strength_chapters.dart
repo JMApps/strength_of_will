@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:of_will/application/state/main_app_state.dart';
@@ -120,7 +122,6 @@ class _StrengthChaptersState extends State<StrengthChapters> {
                             '${AppStrings.lastHead} ${mainAppState.getLastParagraph} ${AppStrings.head}',
                             style: const TextStyle(
                               fontSize: 18,
-                              fontWeight: FontWeight.bold,
                             ),
                             textAlign: TextAlign.center,
                           ),
