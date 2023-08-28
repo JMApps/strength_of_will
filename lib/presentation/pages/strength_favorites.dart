@@ -21,12 +21,13 @@ class _StrengthFavoritesState extends State<StrengthFavorites> {
 
   @override
   Widget build(BuildContext context) {
+    final MainAppState mainAppState = Provider.of<MainAppState>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppStrings.bookmarks),
       ),
       body: FutureBuilder<List<StrengthModel>>(
-        future: context.watch<MainAppState>().getDatabaseQuery.getFavoriteParagraphs(),
+        future: context.watch<MainAppState>().getDatabaseQuery.getFavoriteParagraphs(favorites: mainAppState.getFavoriteParagraphs),
         builder: (BuildContext context, AsyncSnapshot<List<StrengthModel>> snapshot) {
           if (snapshot.hasData) {
             return CupertinoScrollbar(

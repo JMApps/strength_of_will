@@ -47,7 +47,7 @@ class _TabletPageState extends State<TabletPage> {
                   ),
                 ],
                 currentIndex: mainAppState.getSelectedIndex,
-                onTap: context.read<MainAppState>().changeSelectedIndex,
+                onTap: mainAppState.changeSelectedIndex,
               ),
             ),
           ),

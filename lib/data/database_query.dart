@@ -13,9 +13,9 @@ class DatabaseQuery {
     return allParagraphs!;
   }
 
-  Future<List<StrengthModel>> getFavoriteParagraphs() async {
+  Future<List<StrengthModel>> getFavoriteParagraphs({required List<int> favorites}) async {
     final Database dbClient = await _databaseHelper.db;
-    var res = await dbClient.query('Table_of_chapters', where: 'favorite_state == 1');
+    var res = await dbClient.query('Table_of_chapters', where: 'id IN (${favorites.map((id) => '?').join(', ')})', whereArgs: favorites);
     List<StrengthModel>? favoriteParagraphs = res.isNotEmpty ? res.map((c) => StrengthModel.fromMap(c)).toList() : null;
     return favoriteParagraphs!;
   }
@@ -32,10 +32,5 @@ class DatabaseQuery {
     var res = await dbClient.query('Table_of_footnotes', where: 'id == $paragraphId');
     List<FootnoteModel>? footnote = res.isNotEmpty ? res.map((c) => FootnoteModel.fromMap(c)).toList() : null;
     return footnote!;
-  }
-
-  Future<void> addRemoveFavorite(int state, int id) async {
-    final Database dbClient = await _databaseHelper.db;
-    await dbClient.rawQuery('UPDATE Table_of_chapters SET favorite_state = $state WHERE id == $id');
   }
 }

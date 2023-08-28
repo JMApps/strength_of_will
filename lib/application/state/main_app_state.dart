@@ -5,6 +5,7 @@ import 'package:of_will/data/database_query.dart';
 
 class MainAppState extends ChangeNotifier {
   final _contentSettingsBox = Hive.box(AppConstraints.keyAppSettingsBox);
+  final _favoritesBox = Hive.box(AppConstraints.keyContentFavorites);
 
   final DatabaseQuery _databaseQuery = DatabaseQuery();
 
@@ -17,6 +18,15 @@ class MainAppState extends ChangeNotifier {
   int _lastParagraph = 0;
 
   int get getLastParagraph => _lastParagraph;
+
+  List<int> _favoriteParagraphs = [];
+
+  List<int> get getFavoriteParagraphs => _favoriteParagraphs;
+
+  MainAppState() {
+    _lastParagraph = _contentSettingsBox.get(AppConstraints.keyLastHead, defaultValue: 0);
+    _favoriteParagraphs = _favoritesBox.get(AppConstraints.keyContentFavorites, defaultValue: <int>[]);
+  }
 
   set saveLastParagraph(int paragraphId) {
     _lastParagraph = paragraphId;
@@ -38,12 +48,19 @@ class MainAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addRemoveBookmark(int favoriteState, int lessonId) async {
-    _databaseQuery.addRemoveFavorite(favoriteState, lessonId);
+  toggleFavorite(int id) {
+    final exist = _favoriteParagraphs.contains(id);
+    if (exist) {
+      _favoriteParagraphs.remove(id);
+    } else {
+      _favoriteParagraphs.add(id);
+    }
+    _favoritesBox.put(AppConstraints.keyContentFavorites, _favoriteParagraphs);
     notifyListeners();
   }
 
-  MainAppState() {
-    _lastParagraph = _contentSettingsBox.get(AppConstraints.keyLastHead, defaultValue: 0);
+  bool supplicationIsFavorite(int id) {
+    final exist = _favoriteParagraphs.contains(id);
+    return exist;
   }
 }

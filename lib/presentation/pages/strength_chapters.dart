@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:of_will/application/state/main_app_state.dart';
@@ -14,15 +12,8 @@ import 'package:of_will/presentation/widgets/search_strength_delegate.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-class StrengthChapters extends StatefulWidget {
+class StrengthChapters extends StatelessWidget {
   const StrengthChapters({Key? key}) : super(key: key);
-
-  @override
-  State<StrengthChapters> createState() => _StrengthChaptersState();
-}
-
-class _StrengthChaptersState extends State<StrengthChapters> {
-  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,18 +39,14 @@ class _StrengthChaptersState extends State<StrengthChapters> {
       ),
       body: FutureBuilder<List<StrengthModel>>(
         future: mainAppState.getDatabaseQuery.getAllParagraphs(),
-        builder:
-            (BuildContext context, AsyncSnapshot<List<StrengthModel>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<StrengthModel>> snapshot) {
           if (snapshot.hasData) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Expanded(
                   child: CupertinoScrollbar(
-                    controller: _scrollController,
                     child: ListView.builder(
-                      controller: _scrollController,
-                      scrollDirection: Axis.vertical,
                       padding: AppStyles.mainPaddingMini,
                       itemCount: snapshot.data!.length,
                       itemBuilder: (BuildContext context, int index) {

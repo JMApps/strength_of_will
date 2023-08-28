@@ -5,7 +5,6 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     useMaterial3: true,
-    scaffoldBackgroundColor: const Color(0xFFFFFFFF),
     colorSchemeSeed: Colors.blue,
     fontFamily: 'Nexa',
     appBarTheme: const AppBarTheme(
@@ -32,7 +31,6 @@ class AppTheme {
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     useMaterial3: true,
-    scaffoldBackgroundColor: const Color(0xFF130700),
     colorSchemeSeed: Colors.orange,
     fontFamily: 'Nexa',
     appBarTheme: const AppBarTheme(

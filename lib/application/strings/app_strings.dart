@@ -9,6 +9,8 @@ class AppStrings {
   static const String lastHead = 'Продолжить чтение';
   static const String head = 'параграфа';
   static const String errorInLoad = 'Ошибка при загрузке';
+  static const String added = 'Добавлено';
+  static const String removed = 'Удалено';
 
   // Settings
   static const String textFont = 'Шрифт';

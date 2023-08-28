@@ -2,14 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:html/parser.dart';
 import 'package:of_will/application/state/content_settings_state.dart';
 import 'package:of_will/application/state/main_app_state.dart';
 import 'package:of_will/application/styles/app_styles.dart';
 import 'package:of_will/application/themes/app_theme.dart';
 import 'package:of_will/data/model/strength_model.dart';
-import 'package:of_will/presentation/widgets/footnote_data.dart';
+import 'package:of_will/presentation/widgets/for_html_text.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -23,7 +22,7 @@ class StrengthContentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme appColors = Theme.of(context).colorScheme;
+    final ThemeData appTheme = Theme.of(context);
     return FutureBuilder<List<StrengthModel>>(
       future: context
           .read<MainAppState>()
@@ -45,7 +44,7 @@ class StrengthContentPage extends StatelessWidget {
                     child: CustomScrollView(
                       slivers: [
                         SliverAppBar(
-                          title: Text(model.chapterTitle),
+                          title: Text(model.paragraph),
                           floating: true,
                           actions: [
                             IconButton(
@@ -58,7 +57,7 @@ class StrengthContentPage extends StatelessWidget {
                               onPressed: () {
                                 Share.share(
                                   _parseHtmlText(
-                                    '${model.paragraph}\n\n${model.chapterTitle}\n\n${model.chapterContent}}',
+                                    '${model.paragraph}\n\n${model.chapterTitle}\n\n${model.chapterContent}${model.footnotesChapter != null ? '\n\n${model.footnotesChapter}' : ''}',
                                   ),
                                   sharePositionOrigin:
                                       const Rect.fromLTWH(0, 0, 10, 10 / 2),
@@ -78,7 +77,7 @@ class StrengthContentPage extends StatelessWidget {
                                 model.chapterTitle,
                                 style: TextStyle(
                                   fontSize: 18,
-                                  color: appColors.titleColor,
+                                  color: appTheme.colorScheme.titleColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 textAlign: TextAlign.center,
@@ -87,40 +86,16 @@ class StrengthContentPage extends StatelessWidget {
                           ),
                         ),
                         SliverToBoxAdapter(
-                          child: Html(
-                            data: model.chapterContent,
-                            style: {
-                              '#': Style(
-                                padding: HtmlPaddings.all(4),
-                                fontSize: FontSize(settingsState.getTextSize),
-                                fontFamily: AppStyles
-                                    .getFont[settingsState.getFontIndex],
-                                textAlign: AppStyles
-                                    .getAlign[settingsState.getTextAlignIndex],
-                                color: settingsState.getDarkTheme
-                                    ? settingsState.getDarkTextColor
-                                    : settingsState.getLightTextColor,
-                              ),
-                              'a': Style(
-                                fontSize: FontSize(settingsState.getTextSize),
-                                color: appColors.titleColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              'small': Style(
-                                padding: HtmlPaddings.zero,
-                                margin: Margins.zero,
-                                fontSize: FontSize(14),
-                              ),
-                            },
-                            onLinkTap: (String? content, _, __) {
-                              showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (_) => FootnoteData(
-                                  footnoteId: int.parse(content!),
-                                ),
-                              );
-                            },
+                          child: Padding(
+                            padding: AppStyles.mainPadding,
+                            child: ForHtmlText(
+                              textContent: model.chapterContent,
+                              textSize: settingsState.getTextSize,
+                              textFontIndex: settingsState.getFontIndex,
+                              textAlignIndex: settingsState.getTextAlignIndex,
+                              textLightColor: settingsState.getLightTextColor,
+                              textDarkColor: settingsState.getDarkTextColor,
+                            ),
                           ),
                         ),
                       ],

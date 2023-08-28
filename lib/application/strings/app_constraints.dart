@@ -1,5 +1,6 @@
 class AppConstraints {
   static const String keyAppSettingsBox = 'key_strength_app_settings_box';
+  static const String keyContentFavorites = 'key_content_favorites';
 
   // Settings
   static const String keyFontIndex = 'key_strength_font_index';

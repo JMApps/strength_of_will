@@ -28,6 +28,7 @@ void main() async {
   }
   await Hive.initFlutter();
   await Hive.openBox(AppConstraints.keyAppSettingsBox);
+  await Hive.openBox(AppConstraints.keyContentFavorites);
   runApp(
     MultiProvider(
       providers: [
@@ -48,8 +49,7 @@ class RootPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ContentSettingsState contentSettingsState =
-        Provider.of<ContentSettingsState>(context);
+    final ContentSettingsState contentSettingsState = Provider.of<ContentSettingsState>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateRoute: AppRoutes.onGenerateRoute,
