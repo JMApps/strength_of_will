@@ -19,7 +19,7 @@ class StrengthModel {
       paragraph: map['paragraph'] as String,
       chapterTitle: map['chapter_title'] as String,
       chapterContent: map['chapter_content'] as String,
-      footnotesChapter: map['footnotes_chapter'] as String,
+      footnotesChapter: map['footnotes_chapter'] as String?,
     );
   }
 }
