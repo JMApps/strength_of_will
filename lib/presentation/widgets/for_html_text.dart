@@ -56,7 +56,7 @@ class ForHtmlText extends StatelessWidget {
           context: context,
           builder: (context) => FootnoteData(
             footnoteId: int.parse(
-              footnoteId!,
+              footnoteId ?? '1',
             ),
           ),
         );
