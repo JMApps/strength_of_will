@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 import 'package:of_will/application/state/content_settings_state.dart';
 import 'package:of_will/application/state/main_app_state.dart';
+import 'package:of_will/application/strings/app_strings.dart';
 import 'package:of_will/application/styles/app_styles.dart';
 import 'package:of_will/application/themes/app_theme.dart';
 import 'package:of_will/data/model/strength_model.dart';
@@ -24,12 +25,8 @@ class StrengthContentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData appTheme = Theme.of(context);
     return FutureBuilder<List<StrengthModel>>(
-      future: context
-          .read<MainAppState>()
-          .getDatabaseQuery
-          .getChapterContent(paragraphId),
-      builder:
-          (BuildContext context, AsyncSnapshot<List<StrengthModel>> snapshot) {
+      future: context.read<MainAppState>().getDatabaseQuery.getChapterContent(paragraphId),
+      builder: (BuildContext context, AsyncSnapshot<List<StrengthModel>> snapshot) {
         if (snapshot.hasData) {
           final StrengthModel model = snapshot.data![0];
           return Consumer<ContentSettingsState>(
@@ -51,6 +48,7 @@ class StrengthContentPage extends StatelessWidget {
                               onPressed: () {
                                 Navigator.pushNamed(context, '/app_settings');
                               },
+                              tooltip: AppStrings.settings,
                               icon: const Icon(CupertinoIcons.settings),
                             ),
                             IconButton(
@@ -59,10 +57,10 @@ class StrengthContentPage extends StatelessWidget {
                                   _parseHtmlText(
                                     '${model.paragraph}\n\n${model.chapterTitle}\n\n${model.chapterContent}${model.footnotesChapter != null ? '\n\n${model.footnotesChapter}' : ''}',
                                   ),
-                                  sharePositionOrigin:
-                                      const Rect.fromLTWH(0, 0, 10, 10 / 2),
+                                  sharePositionOrigin: const Rect.fromLTWH(0, 0, 10, 10 / 2),
                                 );
                               },
+                              tooltip: AppStrings.share,
                               icon: const Icon(CupertinoIcons.share),
                             ),
                           ],

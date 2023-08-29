@@ -25,7 +25,8 @@ class _StrengthChaptersState extends State<StrengthChapters> {
   @override
   Widget build(BuildContext context) {
     final ColorScheme appColors = Theme.of(context).colorScheme;
-    final MainAppState mainAppState = Provider.of<MainAppState>(context);
+    final MainAppState watchMainState = context.watch<MainAppState>();
+    final MainAppState readMainState = context.read<MainAppState>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(AppStrings.appName),
@@ -45,7 +46,7 @@ class _StrengthChaptersState extends State<StrengthChapters> {
         ],
       ),
       body: FutureBuilder<List<StrengthModel>>(
-        future: mainAppState.getDatabaseQuery.getAllParagraphs(),
+        future: watchMainState.getDatabaseQuery.getAllParagraphs(),
         builder: (BuildContext context, AsyncSnapshot<List<StrengthModel>> snapshot) {
           if (snapshot.hasData) {
             return Column(
@@ -56,7 +57,7 @@ class _StrengthChaptersState extends State<StrengthChapters> {
                     controller: _scrollController,
                     child: ListView.builder(
                       controller: _scrollController,
-                      padding: AppStyles.mainPaddingMini,
+                      padding: const EdgeInsets.only(left: 8, top: 8, right: 8),
                       itemCount: snapshot.data!.length,
                       itemBuilder: (BuildContext context, int index) {
                         return ScreenTypeLayout.builder(
@@ -74,9 +75,9 @@ class _StrengthChaptersState extends State<StrengthChapters> {
                   ),
                 ),
                 Visibility(
-                  visible: mainAppState.getLastParagraph > 0 ? true : false,
+                  visible: watchMainState.getLastParagraph > 0 ? true : false,
                   child: Card(
-                    margin: const EdgeInsets.fromLTRB(8, 0, 8, 16),
+                    margin: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                     shape: RoundedRectangleBorder(
                       borderRadius: AppStyles.mainBorderRadius,
                       side: BorderSide(
@@ -91,7 +92,7 @@ class _StrengthChaptersState extends State<StrengthChapters> {
                             context,
                             '/strength_content',
                             arguments: StrengthArguments(
-                              paragraphId: mainAppState.getLastParagraph,
+                              paragraphId: readMainState.getLastParagraph,
                             ),
                           );
                         },
@@ -99,7 +100,7 @@ class _StrengthChaptersState extends State<StrengthChapters> {
                         child: Padding(
                           padding: AppStyles.mainPaddingMini,
                           child: Text(
-                            '${AppStrings.lastHead} ${mainAppState.getLastParagraph} ${AppStrings.head}',
+                            '${AppStrings.lastHead} ${watchMainState.getLastParagraph} ${AppStrings.head}',
                             style: const TextStyle(
                               fontSize: 18,
                             ),
@@ -109,13 +110,13 @@ class _StrengthChaptersState extends State<StrengthChapters> {
                       ),
                       tablet: (BuildContext context) => InkWell(
                         onTap: () {
-                          mainAppState.changeParagraphId = mainAppState.getLastParagraph;
+                          readMainState.changeParagraphId = readMainState.getLastParagraph;
                         },
                         borderRadius: AppStyles.mainBorderRadius,
                         child: Padding(
                           padding: AppStyles.mainPaddingMini,
                           child: Text(
-                            '${AppStrings.lastHead} ${mainAppState.getLastParagraph} ${AppStrings.head}',
+                            '${AppStrings.lastHead} ${watchMainState.getLastParagraph} ${AppStrings.head}',
                             style: const TextStyle(
                               fontSize: 18,
                             ),

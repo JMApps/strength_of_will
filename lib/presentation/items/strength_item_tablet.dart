@@ -21,14 +21,14 @@ class StrengthItemTablet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ColorScheme appColors = Theme.of(context).colorScheme;
-    final MainAppState mainAppState = Provider.of<MainAppState>(context);
-    final bool isBookmark = mainAppState.supplicationIsFavorite(model.id);
+    final MainAppState readMainState = context.read<MainAppState>();
+    final bool isBookmark = readMainState.supplicationIsFavorite(model.id);
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
       child: ListTile(
         onTap: () {
-          mainAppState.saveLastParagraph = model.id;
-          mainAppState.changeParagraphId = model.id;
+          readMainState.saveLastParagraph = model.id;
+          readMainState.changeParagraphId = model.id;
         },
         contentPadding: AppStyles.mainPaddingMini,
         visualDensity: const VisualDensity(horizontal: -4),
@@ -51,7 +51,7 @@ class StrengthItemTablet extends StatelessWidget {
         ),
         leading: IconButton(
           onPressed: () {
-            mainAppState.toggleFavorite(model.id);
+            readMainState.toggleFavorite(model.id);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: appColors.titleColor,

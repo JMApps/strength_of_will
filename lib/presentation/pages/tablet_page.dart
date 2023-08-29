@@ -22,7 +22,8 @@ class _TabletPageState extends State<TabletPage> {
 
   @override
   Widget build(BuildContext context) {
-    final MainAppState mainAppState = Provider.of<MainAppState>(context);
+    final MainAppState watchMainState = context.watch<MainAppState>();
+    final MainAppState readMainState = context.read<MainAppState>();
     return Material(
       child: Row(
         children: [
@@ -32,7 +33,7 @@ class _TabletPageState extends State<TabletPage> {
                 duration: const Duration(milliseconds: 250),
                 switchInCurve: Curves.easeInToLinear,
                 switchOutCurve: Curves.easeInToLinear,
-                child: _listWidgets[mainAppState.getSelectedIndex],
+                child: _listWidgets[watchMainState.getSelectedIndex],
               ),
               bottomNavigationBar: BottomNavigationBar(
                 useLegacyColorScheme: false,
@@ -46,15 +47,15 @@ class _TabletPageState extends State<TabletPage> {
                     icon: Icon(CupertinoIcons.bookmark),
                   ),
                 ],
-                currentIndex: mainAppState.getSelectedIndex,
-                onTap: mainAppState.changeSelectedIndex,
+                currentIndex: watchMainState.getSelectedIndex,
+                onTap: readMainState.changeSelectedIndex,
               ),
             ),
           ),
           Expanded(
             flex: 2,
             child: StrengthContentPage(
-              paragraphId: mainAppState.getParagraphId,
+              paragraphId: readMainState.getParagraphId,
             ),
           ),
         ],

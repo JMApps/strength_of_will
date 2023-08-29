@@ -23,13 +23,14 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final MainAppState mainAppState = Provider.of<MainAppState>(context);
+    final MainAppState watchMainState = context.watch<MainAppState>();
+    final MainAppState readMainState = context.read<MainAppState>();
     return Scaffold(
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 250),
         switchInCurve: Curves.easeInToLinear,
         switchOutCurve: Curves.easeInToLinear,
-        child: _listWidgets[mainAppState.getSelectedIndex],
+        child: _listWidgets[watchMainState.getSelectedIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
         useLegacyColorScheme: false,
@@ -47,8 +48,8 @@ class _MainPageState extends State<MainPage> {
             icon: Icon(CupertinoIcons.settings),
           ),
         ],
-        currentIndex: mainAppState.getSelectedIndex,
-        onTap: mainAppState.changeSelectedIndex,
+        currentIndex: watchMainState.getSelectedIndex,
+        onTap: readMainState.changeSelectedIndex,
       ),
     );
   }

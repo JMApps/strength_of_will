@@ -16,8 +16,7 @@ class FootnoteContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData appTheme = Theme.of(context);
-    final ContentSettingsState settings =
-        Provider.of<ContentSettingsState>(context);
+    final ContentSettingsState settings = Provider.of<ContentSettingsState>(context);
     return Card(
       margin: AppStyles.mainMargin,
       child: SingleChildScrollView(

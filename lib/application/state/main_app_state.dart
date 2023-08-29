@@ -5,6 +5,7 @@ import 'package:of_will/data/database_query.dart';
 
 class MainAppState extends ChangeNotifier {
   final _contentSettingsBox = Hive.box(AppConstraints.keyAppSettingsBox);
+
   final _favoritesBox = Hive.box(AppConstraints.keyContentFavorites);
 
   final DatabaseQuery _databaseQuery = DatabaseQuery();

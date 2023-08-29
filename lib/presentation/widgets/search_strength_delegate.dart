@@ -80,16 +80,9 @@ class SearchStrengthDelegate extends SearchDelegate {
           _paragraphs = snapshot.data;
           _paragraphsLessons = query.isEmpty
               ? _paragraphs
-              : _paragraphs
-                  .where((element) =>
-                      element.id.toString().contains(query) ||
-                      element.paragraph
-                          .toLowerCase()
-                          .contains(query.toLowerCase()) ||
-                      element.chapterTitle
-                          .toLowerCase()
-                          .contains(query.toLowerCase()))
-                  .toList();
+              : _paragraphs.where((element) => element.id.toString().contains(query) ||
+                      element.paragraph.toLowerCase().contains(query.toLowerCase()) ||
+                      element.chapterTitle.toLowerCase().contains(query.toLowerCase())).toList();
           return _paragraphsLessons.isEmpty
               ? const Padding(
                   padding: AppStyles.mainPadding,

@@ -34,10 +34,6 @@ dev_dependencies:
   flutter_lints: ^2.0.2
 
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
   assets:
     - assets/databases/
@@ -47,9 +43,9 @@ flutter:
     - family: Gilroy
       fonts:
         - asset: assets/fonts/gilroy_medium.ttf
-    - family: Ubuntu
+    - family: Montserrat
       fonts:
-        - asset: assets/fonts/ubuntu_medium.ttf
+        - asset: assets/fonts/montserrat_medium.ttf
     - family: Nexa
       fonts:
         - asset: assets/fonts/nexa_reqular.ttf

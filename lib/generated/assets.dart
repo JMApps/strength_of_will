@@ -4,7 +4,7 @@ class Assets {
 
   static const String databasesStrength = 'assets/databases/strength.db';
   static const String fontsGilroyMedium = 'assets/fonts/gilroy_medium.ttf';
+  static const String fontsMontserratMedium = 'assets/fonts/montserrat_medium.ttf';
   static const String fontsNexaReqular = 'assets/fonts/nexa_reqular.ttf';
-  static const String fontsUbuntuMedium = 'assets/fonts/ubuntu_medium.ttf';
 
 }
